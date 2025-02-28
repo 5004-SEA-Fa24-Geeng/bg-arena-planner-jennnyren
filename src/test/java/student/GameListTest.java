@@ -2,16 +2,23 @@ package student;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameListTest {
     private GameList gameList;
     private Set<BoardGame> games;
+
+    @TempDir
+    static Path tempDir;
 
     @BeforeEach
     void setUp() {
@@ -28,15 +35,8 @@ class GameListTest {
     }
 
     @Test
-    void getGameNames() {
-        gameList.addToList("0", games.stream());
-        gameList.addToList("1", games.stream());
+    void getGameNamesValid() {
         gameList.addToList("2", games.stream());
-        gameList.addToList("3", games.stream());
-        gameList.addToList("4", games.stream());
-        gameList.addToList("5", games.stream());
-        gameList.addToList("6", games.stream());
-        gameList.addToList("7", games.stream());
         assertTrue(gameList.getGameNames().contains("Chess"));
     }
 
@@ -44,8 +44,6 @@ class GameListTest {
     void clear() {
         gameList.addToList("1", games.stream());
         gameList.addToList("2", games.stream());
-        assertEquals(2, gameList.count());
-
         gameList.clear();
         assertEquals(0, gameList.count());
         assertTrue(gameList.getGameNames().isEmpty());
@@ -57,45 +55,75 @@ class GameListTest {
         gameList.addToList("1", games.stream());
         assertEquals(1, gameList.count());
     }
-//
-//    @Test
-//    void saveGame() {
-//    }
-//
+
     @Test
-    void AddToList(){
-        gameList.addToList("0", games.stream());
+    void saveGame() throws IOException {
+        IGameList list = new GameList();
+        list.addToList("1", games.stream());
+        list.addToList("2", games.stream());
+        Path gameList = tempDir.resolve("gameList.txt");
+        list.saveGame(gameList.toString());
+        assertTrue(Files.exists(gameList));
+        List<String> fileContent = Files.readAllLines(gameList);
+        List<String> expectedResult = List.of("17 days", "Chess");
+        assertEquals(expectedResult, fileContent);
+    }
+
+    @Test
+    void addToListByIndex(){
         gameList.addToList("1", games.stream());
-        gameList.addToList("2", games.stream());
-        gameList.addToList("3", games.stream());
-        gameList.addToList("4", games.stream());
-        gameList.addToList("5", games.stream());
-        gameList.addToList("6", games.stream());
-        gameList.addToList("7", games.stream());
-        assertEquals(8, gameList.count());
+        assertEquals(1, gameList.count());
         assertTrue(gameList.getGameNames().contains("17 days"));
     }
 
     @Test
-    void removeFromList() {
-        gameList.addToList("0", games.stream());
-        gameList.addToList("1", games.stream());
-        gameList.addToList("2", games.stream());
-        gameList.addToList("3", games.stream());
-        gameList.addToList("4", games.stream());
-        gameList.addToList("5", games.stream());
-        gameList.addToList("6", games.stream());
-        gameList.addToList("7", games.stream());
-        gameList.removeFromList("GoRami");
-        assertEquals(7, gameList.count());
+    void addToListByName(){
+        gameList.addToList("Chess", games.stream());
+        assertEquals(1, gameList.count());
+        assertTrue(gameList.getGameNames().contains("Chess"));
     }
 
     @Test
-    void addRangeOfGamesToList(){
-        String[] range = {"1", "2", "3"};
-        for (String index : range){
-            gameList.addToList(index, games.stream());
-        }
+    void addToListByRange(){
+        gameList.addToList("1-3", games.stream());
         assertEquals(3, gameList.count());
+        assertTrue(gameList.getGameNames().contains("17 days"));
+        assertTrue(gameList.getGameNames().contains("Chess"));
+        assertTrue(gameList.getGameNames().contains("Go"));
+    }
+    @Test
+    void addAllToList(){
+        gameList.addToList("ALL", games.stream());
+        assertEquals(8, gameList.count());
+        assertTrue(gameList.getGameNames().contains("Chess"));
+    }
+
+    @Test
+    void removeFromListByIndex() {
+        gameList.addToList("1", games.stream());
+        gameList.removeFromList("1");
+        assertEquals(0, gameList.count());
+    }
+
+    @Test
+    void removeFromListByRange() {
+        gameList.addToList("1-3", games.stream());
+        gameList.removeFromList("1-2");
+        assertEquals(1, gameList.count());
+    }
+
+    @Test
+    void removeFromListByName(){
+        gameList.addToList("Chess", games.stream());
+        gameList.removeFromList("Chess");
+        assertEquals(0, gameList.count());
+    }
+
+    @Test
+    void removeAllFromList(){
+        gameList.addToList("1", games.stream());
+        gameList.addToList("2", games.stream());
+        gameList.removeFromList("all");
+        assertEquals(0, gameList.count());
     }
 }
