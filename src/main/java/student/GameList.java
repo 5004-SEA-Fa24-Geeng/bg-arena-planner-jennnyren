@@ -80,7 +80,7 @@ public class GameList implements IGameList {
            return;
         }
 
-        // Add games by name
+        // Add games by name.
         for (BoardGame bg : gameList) {
             if (bg.getName().equals(str)) {
                 games.add(bg);
@@ -88,14 +88,14 @@ public class GameList implements IGameList {
             }
         }
 
-        // Add games by "all"
+        // Add games by "all".
         if (str.equalsIgnoreCase("all")) {
             games.addAll(gameList);
             return;
         }
 
-        // Add games by range or index
-        // For example, range 1-1 is treated as index 1
+        // Add games by range or index.
+        // For example, range 1-1 is treated as index 1.
         int[] range = parseRange(str, gameList.size());
         int start = range[0];
         int end = range[1];
@@ -132,8 +132,8 @@ public class GameList implements IGameList {
            }
        }
 
-       // Remove games by range or index
-        // For example, range 1-1 treated as index 1
+       // Remove games by range or index.
+        // For example, range 1-1 treated as index 1.
        int[] range = parseRange(str, games.size());
        int start = range[0];
        int end = range[1];

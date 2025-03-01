@@ -6,35 +6,36 @@ import java.util.stream.Stream;
 
 
 public class Planner implements IPlanner {
+    private Set<BoardGame> allGames;
+    private Stream<BoardGame> currentGames;
 
     public Planner(Set<BoardGame> games) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented constructor 'Planner'");
+        this.allGames = games;
+        this.currentGames = games.stream();
     }
 
     @Override
     public Stream<BoardGame> filter(String filter) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filter'");
+         this.currentGames = Filter.applyFilter(filter, allGames.stream());
+         return this.currentGames;
     }
 
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filter'");
+        this.currentGames = Filter.applyFilter(filter, allGames.stream());
+        this.currentGames = Sorts.applySort(currentGames, sortOn, true); // Default to ascending
+        return this.currentGames;
     }
 
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn, boolean ascending) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filter'");
+        this.currentGames = Filter.applyFilter(filter, allGames.stream());
+        this.currentGames = Sorts.applySort(currentGames, sortOn, ascending);
+        return this.currentGames;
     }
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reset'");
+       this.currentGames = allGames.stream();
     }
-
-
 }
