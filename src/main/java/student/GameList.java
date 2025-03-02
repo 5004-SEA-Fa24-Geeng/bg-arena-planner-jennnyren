@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class GameList implements IGameList {
     /**
-     * A set of BoardGame objects
+     * A set of BoardGame objects.
      */
     private Set<BoardGame> games;
 

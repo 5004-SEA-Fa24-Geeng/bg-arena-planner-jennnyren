@@ -6,9 +6,20 @@ import java.util.stream.Stream;
 
 
 public class Planner implements IPlanner {
+    /**
+     * A set of all BoardGame objects.
+     */
     private Set<BoardGame> allGames;
+
+    /**
+     * A stream of BoardGame objects to work on.
+     */
     private Stream<BoardGame> currentGames;
 
+    /**
+     * Constructs a planner object
+     * @param games games to work on
+     */
     public Planner(Set<BoardGame> games) {
         this.allGames = games;
         this.currentGames = games.stream();
