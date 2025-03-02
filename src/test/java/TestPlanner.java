@@ -50,7 +50,7 @@ public class TestPlanner {
     @Test
     public void testFilterNameContains() {
         IPlanner planner = new Planner(games);
-        List<BoardGame> filtered = planner.filter("name ~= go ").toList();
+        List<BoardGame> filtered = planner.filter("name ~= go").toList();
         assertEquals(4, filtered.size());
     }
 
