@@ -8,6 +8,9 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class GameList implements IGameList {
+    /**
+     * A set of BoardGame objects
+     */
     private Set<BoardGame> games;
 
     /**
@@ -70,7 +73,9 @@ public class GameList implements IGameList {
      */
     @Override
     public void addToList(String str, Stream<BoardGame> filtered) throws IllegalArgumentException {
-        List<BoardGame> gameList = filtered.sorted(Comparator.comparing(BoardGame::getName, String.CASE_INSENSITIVE_ORDER)).toList();
+        List<BoardGame> gameList = filtered
+                .sorted(Comparator.comparing(BoardGame::getName, String.CASE_INSENSITIVE_ORDER))
+                .toList();
 
         // Check if games exist.
         Optional<BoardGame> game = checkIfGameExists(str, gameList.stream());
@@ -144,7 +149,7 @@ public class GameList implements IGameList {
     }
 
     /**
-     * Parse the range string
+     * Parse the range string.
      *
      * @param str the range string
      * @param max the maximum number of games
@@ -186,11 +191,11 @@ public class GameList implements IGameList {
     }
 
     /**
-     * Determine if game exists
+     * Determine if game exists.
      *
      * @param str      the game to be found
-     * @param filtered a stream of </BoardGame> to perform on
-     * @return a </BoardGame> if found, otherwise an empty result
+     * @param filtered a stream of BoardGame to perform on
+     * @return a BoardGame if found, otherwise an empty result
      */
     private Optional<BoardGame> checkIfGameExists(String str, Stream<BoardGame> filtered) {
         return filtered.filter(game -> game.getName().equalsIgnoreCase(str)).findFirst();

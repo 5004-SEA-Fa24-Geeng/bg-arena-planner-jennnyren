@@ -3,6 +3,12 @@ package student;
 import java.util.stream.Stream;
 
 public class Filter {
+    /**
+     *
+     * @param filter the filter string
+     * @param games a stream of BoardGame objects
+     * @return the filtered stream
+     */
     public static Stream<BoardGame> applyFilter(String filter, Stream<BoardGame> games) {
         filter = filter.replaceAll(" ", "");
 
@@ -38,9 +44,10 @@ public class Filter {
     }
 
     private static <T extends Comparable<T>> Stream<BoardGame> filterNumeric(
-            Stream<BoardGame> games, java.util.function.Function<BoardGame, T> getter,
-            Operations operator, T value
-    ) {
+            Stream<BoardGame> games,
+            java.util.function.Function<BoardGame, T> getter,
+            Operations operator,
+            T value) {
         return switch (operator) {
             case EQUALS -> games.filter(game -> getter.apply(game).compareTo(value) == 0);
             case NOT_EQUALS -> games.filter(game -> getter.apply(game).compareTo(value) != 0);
@@ -53,9 +60,10 @@ public class Filter {
     }
 
     private static Stream<BoardGame> filterString(
-            Stream<BoardGame> games, java.util.function.Function<BoardGame, String> getter,
-            Operations operator, String value
-    ) {
+            Stream<BoardGame> games,
+            java.util.function.Function<BoardGame, String> getter,
+            Operations operator,
+            String value) {
         return switch (operator) {
             case EQUALS -> games.filter(game -> getter.apply(game).equalsIgnoreCase(value));
             case NOT_EQUALS -> games.filter(game -> !getter.apply(game).equalsIgnoreCase(value));

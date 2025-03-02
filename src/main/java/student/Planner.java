@@ -14,12 +14,23 @@ public class Planner implements IPlanner {
         this.currentGames = games.stream();
     }
 
+    /**
+     *
+     * @param filter The filter to apply to the board games.
+     * @return the filtered stream
+     */
     @Override
     public Stream<BoardGame> filter(String filter) {
         this.currentGames = Filter.applyFilter(filter, allGames.stream());
         return this.currentGames;
     }
 
+    /**
+     *
+     * @param filter The filter to apply to the board games.
+     * @param sortOn The column to sort the results on.
+     * @return the filtered and sorted stream
+     */
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn) {
         this.currentGames = Filter.applyFilter(filter, allGames.stream());
@@ -27,6 +38,13 @@ public class Planner implements IPlanner {
         return this.currentGames;
     }
 
+    /**
+     *
+     * @param filter The filter to apply to the board games.
+     * @param sortOn The column to sort the results on.
+     * @param ascending Whether to sort the results in ascending order or descending order.
+     * @return the filtered and sorted stream in ascending or descending order
+     */
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn, boolean ascending) {
         this.currentGames = Filter.applyFilter(filter, allGames.stream());
@@ -34,6 +52,9 @@ public class Planner implements IPlanner {
         return this.currentGames;
     }
 
+    /**
+     * Reset the stream
+     */
     @Override
     public void reset() {
         this.currentGames = allGames.stream();
