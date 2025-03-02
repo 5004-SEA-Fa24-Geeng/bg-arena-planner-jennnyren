@@ -32,13 +32,174 @@ public class TestPlanner {
         games.add(new BoardGame("Tucano", 5, 10, 20, 60, 90, 6.0, 500, 8.0, 2004));
     }
 
-     @Test
-    public void testFilterName() {
+    // Test Filter.
+    // Test names.
+    @Test
+    public void testFilterNameEquals() {
         IPlanner planner = new Planner(games);
         List<BoardGame> filtered = planner.filter("name == Go").toList();
         assertEquals(1, filtered.size());
         assertEquals("Go", filtered.get(0).getName());
     }
-    
+    @Test
+    public void testFilterNameNotEquals() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("name != Go").toList();
+        assertEquals(7, filtered.size());
+    }
+    @Test
+    public void testFilterNameContains() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("name ~= go ").toList();
+        assertEquals(4, filtered.size());
+    }
 
+    // Test Id.
+    @Test
+    public void testFilterIdEquals() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("id == 1").toList();
+        assertEquals(1, filtered.size());
+    }
+    @Test
+    public void testFilterIdNotEquals() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("id != 1").toList();
+        assertEquals(7, filtered.size());
+    }
+
+    // Test MinPlayers.
+    @Test
+    public void testFilterMinPlayersGreaterThan() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers > 3").toList();
+        assertEquals(3, filtered.size());
+    }
+    @Test
+    public void testFilterMinPlayersLessThan() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers < 3").toList();
+        assertEquals(5, filtered.size());
+    }
+
+    // Test MaxPlayers.
+    @Test
+    public void testFilterMaxPlayersLessThanEqual() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("maxPlayers <= 10").toList();
+        assertEquals(7, filtered.size());
+    }
+    @Test
+    public void testFilterMaxPlayersGreaterThanEqual() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("maxPlayers >= 10").toList();
+        assertEquals(3, filtered.size());
+    }
+
+    // Test MinPlayTime
+    @Test
+    public void testFilterMinPlayTimeLessThan() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayTime < 70").toList();
+        assertEquals(7, filtered.size());
+    }
+    @Test
+    public void testFilterMinPlayTimeGreaterThan() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayTime > 70").toList();
+        assertEquals(0, filtered.size());
+    }
+
+    // Test MaxPLayTime
+    @Test
+    public void testFilterMaxPlayTimeLessThanEqual() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("maxPlayTime <= 1000").toList();
+        assertEquals(8, filtered.size());
+    }
+    @Test
+    public void testFilterMaxPlayTimeGreaterThanEqual() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("maxPlayTime >= 1000").toList();
+        assertEquals(1, filtered.size());
+    }
+
+    // Test Difficulty.
+    @Test
+    public void testFilterDifficultyLessThan(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("difficulty < 5.0").toList();
+        assertEquals(2, filtered.size());
+    }
+    @Test
+    public void testFilterDifficultyGreaterThan(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("difficulty > 5.0").toList();
+        assertEquals(5, filtered.size());
+    }
+
+    // Test Rank.
+    @Test
+    public void testFilterRankLessThanEqual() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("rank <= 600").toList();
+        assertEquals(6, filtered.size());
+    }
+    @Test
+    public void testFilterRankGreaterThanEqual() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("rank >= 600").toList();
+        assertEquals(3, filtered.size());
+    }
+
+    // Test Average rating.
+    @Test
+    public void testAverageRatingLessThan(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("rating < 5.0").toList();
+        assertEquals(0, filtered.size());
+    }
+    @Test
+    public void testAverageRatingGreaterThan(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("rating > 5.0").toList();
+        assertEquals(7, filtered.size());
+    }
+
+    // Test year published.
+    @Test
+    public void testYearPublishedEquals(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("year == 2006").toList();
+        assertEquals(1, filtered.size());
+    }
+
+    // Test filter and sort
+    // Test year in ascending order
+    @Test
+    public void testYearPublishedAscending(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> GreaterThan2005 = planner
+                .filter("year > 2005", GameData.YEAR)
+                .toList();
+
+        assertEquals(List.of("Chess", "Monopoly"),
+                GreaterThan2005.stream()
+                        .map(BoardGame::getName)
+                        .toList());
+    }
+
+    // Test rating in descending order
+    @Test
+    public void testRatingDescending(){
+        IPlanner planner = new Planner(games);
+        List<BoardGame> RatingDescending = planner
+                .filter("rating>8.0", GameData.RATING, false)
+                .toList();
+
+        assertEquals(List.of("Chess", "golang", "17 days", "GoRami"),
+                RatingDescending.stream()
+                        .map(BoardGame::getName)
+                        .toList());
+    }
 }
