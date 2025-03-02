@@ -16,8 +16,8 @@ public class Planner implements IPlanner {
 
     @Override
     public Stream<BoardGame> filter(String filter) {
-         this.currentGames = Filter.applyFilter(filter, allGames.stream());
-         return this.currentGames;
+        this.currentGames = Filter.applyFilter(filter, allGames.stream());
+        return this.currentGames;
     }
 
     @Override
@@ -36,6 +36,6 @@ public class Planner implements IPlanner {
 
     @Override
     public void reset() {
-       this.currentGames = allGames.stream();
+        this.currentGames = allGames.stream();
     }
 }

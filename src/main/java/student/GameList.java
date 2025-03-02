@@ -19,14 +19,12 @@ public class GameList implements IGameList {
 
     /**
      * Get the name of games.
+     *
      * @return a list of game names.
      */
     @Override
     public List<String> getGameNames() {
-        List<String> gameNames = games.stream()
-                .map(BoardGame::getName)
-                .sorted(String.CASE_INSENSITIVE_ORDER)
-                .toList();
+        List<String> gameNames = games.stream().map(BoardGame::getName).sorted(String.CASE_INSENSITIVE_ORDER).toList();
         return gameNames;
     }
 
@@ -40,6 +38,7 @@ public class GameList implements IGameList {
 
     /**
      * Count the number of games.
+     *
      * @return the number of games.
      */
     @Override
@@ -49,11 +48,12 @@ public class GameList implements IGameList {
 
     /**
      * Save games to a file.
+     *
      * @param filename The name of the file to save the list to.
      */
     @Override
     public void saveGame(String filename) {
-        try{
+        try {
             List<String> gameNames = getGameNames();
             Files.write(Path.of(filename), gameNames, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
@@ -64,20 +64,19 @@ public class GameList implements IGameList {
     /**
      * Add games to list by index, range, name, or "all".
      * "all" means all the contents in the list.
+     *
      * @param str      the string to parse and add games to the list.
      * @param filtered the filtered list to use as a basis for adding.
      */
     @Override
     public void addToList(String str, Stream<BoardGame> filtered) throws IllegalArgumentException {
-        List<BoardGame> gameList = filtered
-                .sorted(Comparator.comparing(BoardGame::getName, String.CASE_INSENSITIVE_ORDER))
-                .toList();
+        List<BoardGame> gameList = filtered.sorted(Comparator.comparing(BoardGame::getName, String.CASE_INSENSITIVE_ORDER)).toList();
 
         // Check if games exist.
         Optional<BoardGame> game = checkIfGameExists(str, gameList.stream());
         if (game.isPresent()) {
-           games.add(game.get());
-           return;
+            games.add(game.get());
+            return;
         }
 
         // Add games by name.
@@ -107,44 +106,46 @@ public class GameList implements IGameList {
     /**
      * Remove games from list by index, name, range, or "all".
      * "all" means all the contents in the list.
+     *
      * @param str The string to parse and remove games from the list.
      */
     @Override
     public void removeFromList(String str) throws IllegalArgumentException {
-       Optional<BoardGame> game = checkIfGameExists(str, games.stream());
+        Optional<BoardGame> game = checkIfGameExists(str, games.stream());
 
-       // Check if games exist.
-       if (game.isPresent()) {
-           games.remove(game.get());
-           return;
-       }
+        // Check if games exist.
+        if (game.isPresent()) {
+            games.remove(game.get());
+            return;
+        }
 
-       // Remove games by "all".
-       if (str.equalsIgnoreCase("all")) {
-           games.clear();
-           return;
-       }
+        // Remove games by "all".
+        if (str.equalsIgnoreCase("all")) {
+            games.clear();
+            return;
+        }
 
-       // Remove games by names.
-       for (BoardGame bg : games) {
-           if (bg.getName().equals(str)) {
-               games.remove(bg);
-           }
-       }
+        // Remove games by names.
+        for (BoardGame bg : games) {
+            if (bg.getName().equals(str)) {
+                games.remove(bg);
+            }
+        }
 
-       // Remove games by range or index.
+        // Remove games by range or index.
         // For example, range 1-1 treated as index 1.
-       int[] range = parseRange(str, games.size());
-       int start = range[0];
-       int end = range[1];
-       List<BoardGame> gameList = new ArrayList<>(games);
-       for (int i = start; i <= end; i++) {
-           games.remove(gameList.get(i));
-       }
+        int[] range = parseRange(str, games.size());
+        int start = range[0];
+        int end = range[1];
+        List<BoardGame> gameList = new ArrayList<>(games);
+        for (int i = start; i <= end; i++) {
+            games.remove(gameList.get(i));
+        }
     }
 
     /**
      * Parse the range string
+     *
      * @param str the range string
      * @param max the maximum number of games
      * @return a list [start, end]
@@ -154,7 +155,7 @@ public class GameList implements IGameList {
         int end = max;
 
         String[] parts = str.split("-");
-        try{
+        try {
             // Parse start to indices starting from 0
             start = Integer.parseInt(parts[0]) - 1;
             if (start < 0 || start > max) {
@@ -166,7 +167,7 @@ public class GameList implements IGameList {
 
         // Parse range
         if (parts.length == 2) {
-            try{
+            try {
                 int userEnd = Integer.parseInt(parts[1]) - 1;
                 if (userEnd < start || userEnd > max) {
                     throw new IllegalArgumentException("Invalid range");
@@ -186,7 +187,8 @@ public class GameList implements IGameList {
 
     /**
      * Determine if game exists
-     * @param str the game to be found
+     *
+     * @param str      the game to be found
      * @param filtered a stream of </BoardGame> to perform on
      * @return a </BoardGame> if found, otherwise an empty result
      */

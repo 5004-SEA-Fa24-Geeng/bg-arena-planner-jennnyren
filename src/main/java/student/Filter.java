@@ -7,10 +7,14 @@ public class Filter {
         filter = filter.replaceAll(" ", "");
 
         Operations operator = Operations.getOperatorFromStr(filter);
-        if (operator == null) {return games;}
+        if (operator == null) {
+            return games;
+        }
 
         String[] parts = filter.split(operator.getOperator());
-        if (parts.length != 2) {return games;}
+        if (parts.length != 2) {
+            return games;
+        }
 
         try {
             GameData column = GameData.fromString(parts[0]);
@@ -28,10 +32,13 @@ public class Filter {
                 case MAX_TIME -> filterNumeric(games, BoardGame::getMaxPlayTime, operator, Integer.parseInt(value));
                 case YEAR -> filterNumeric(games, BoardGame::getYearPublished, operator, Integer.parseInt(value));
             };
-        } catch (IllegalArgumentException e) {return games;}
+        } catch (IllegalArgumentException e) {
+            return games;
+        }
     }
+
     private static <T extends Comparable<T>> Stream<BoardGame> filterNumeric(
-            Stream<BoardGame> games,java.util.function.Function<BoardGame, T> getter,
+            Stream<BoardGame> games, java.util.function.Function<BoardGame, T> getter,
             Operations operator, T value
     ) {
         return switch (operator) {
