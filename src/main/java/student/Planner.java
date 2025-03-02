@@ -17,7 +17,7 @@ public class Planner implements IPlanner {
     private Stream<BoardGame> currentGames;
 
     /**
-     * Constructs a planner object
+     * Constructs a planner object.
      * @param games games to work on
      */
     public Planner(Set<BoardGame> games) {
