@@ -15,7 +15,7 @@ public class Planner implements IPlanner {
     }
 
     /**
-     *
+     * Filter the game with a string.
      * @param filter The filter to apply to the board games.
      * @return the filtered stream
      */
@@ -26,7 +26,7 @@ public class Planner implements IPlanner {
     }
 
     /**
-     *
+     * Filter the stream with a string and sort on a column.
      * @param filter The filter to apply to the board games.
      * @param sortOn The column to sort the results on.
      * @return the filtered and sorted stream
@@ -39,7 +39,8 @@ public class Planner implements IPlanner {
     }
 
     /**
-     *
+     * Filter the stream with a string and sort on a column
+     * in ascending or descending order.
      * @param filter The filter to apply to the board games.
      * @param sortOn The column to sort the results on.
      * @param ascending Whether to sort the results in ascending order or descending order.
@@ -53,7 +54,7 @@ public class Planner implements IPlanner {
     }
 
     /**
-     * Reset the stream
+     * Reset the stream.
      */
     @Override
     public void reset() {

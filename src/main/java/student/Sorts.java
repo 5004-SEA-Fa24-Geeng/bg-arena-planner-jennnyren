@@ -9,7 +9,7 @@ public class Sorts {
      * @param games a stream of BoardGame objects to work on
      * @param sortOn the GameData column to sort on
      * @param ascending the order of the output
-     * @return
+     * @return sorted stream
      */
     public static Stream<BoardGame> applySort(Stream<BoardGame> games, GameData sortOn, boolean ascending) {
         Comparator<BoardGame> comparator = switch (sortOn) {
