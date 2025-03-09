@@ -6,21 +6,43 @@ code as it is meant to help you understand some of the concepts.
 ## Technical Questions
 
 1. What is the difference between == and .equals in java? Provide a code example of each, where they would return different results for an object. Include the code snippet using the hash marks (```) to create a code block.\
-\nANSWER:
-In Java, ``==``checks if two
+ANSWER:
+In Java, ``==``checks if two references point to the same object,``.equals()``checks if two objects are meaningfully equal based on how the class defines equality.
+
    ```java
-   // your code here
+   public class StringComparison {
+    public static void main(String[] args) {
+        String a = new String("hello");
+        String b = new String("hello");
+
+        System.out.println(a == b);        // false (different objects in memory)
+        System.out.println(a.equals(b));   // true (same content)
+    }
+}
+
    
    ```
 
+2. Logical sorting can be difficult when talking about case. For example, should "apple" come before "Banana" or after? How would you sort a list of strings in a case-insensitive manner?
+\
+Java's ``Collections.sort()`` method is case-insensitive, meaning uppercase are sorted before lowercase letters.
+\Solution
+\
+   ```java
+   import java.util.*;
 
+public class CaseInsensitiveSorting {
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("banana", "Apple", "cherry", "apple", "Banana");
+        words.sort(String.CASE_INSENSITIVE_ORDER);
+        System.out.println(words);
+    }
+}
 
-
-2. Logical sorting can be difficult when talking about case. For example, should "apple" come before "Banana" or after? How would you sort a list of strings in a case-insensitive manner? 
-
-
-
-
+   ```
+\Output
+\
+``[Apple, apple, banana, Banana, cherry]``
 
 3. In our version of the solution, we had the following code (snippet)
     ```java
@@ -36,25 +58,52 @@ In Java, ``==``checks if two
         } else if (str.contains("=="))...
     ```
     Why would the order in which we checked matter (if it does matter)? Provide examples either way proving your point. 
+\
+The order matters because ``>=`` and ``>`` share a common character ``>``. If we check ``>`` first, ``"foo>=bar"``would incorrectly match ``">"`` instead of ``">="``.
+\
+Example:
+\
+Incorrect order:
+\
+```
+if (str.contains(">")) {
+    return Operations.GREATER_THAN; // This would match ">=" as well, which is incorrect
+} else if (str.contains(">=")) {
+    return Operations.GREATER_THAN_EQUALS; // This line is never reached
+}
 
+```
+\
+Correct order:
+\
+```
+if (str.contains(">=")) {
+    return Operations.GREATER_THAN_EQUALS; // Ensures ">=" is correctly matched first
+} else if (str.contains(">")) {
+    return Operations.GREATER_THAN;
+}
 
+```
 
 4. What is the difference between a List and a Set in Java? When would you use one over the other? 
-
-
+\
+``List`` allows duplicate elements and maintains insertion order; ``Set`` does not allow duplicates and does not necessarily maintain insertion order.
+\
+Use ``List`` when order matters and duplicates are allowed; Use ``Set`` when unique elements are needed.
 
 
 5. In [GamesLoader.java](src/main/java/student/GamesLoader.java), we use a Map to help figure out the columns. What is a map? Why would we use a Map here? 
-
-
+\
+A ``Map<K, V>`` is a key-value data structure where each key maps to exactly one value.
+\
+Why use? To map column names to their corresponding indices or values and allows fast lookups when parsing game data.
 
 
 6. [GameData.java](src/main/java/student/GameData.java) is actually an `enum` with special properties we added to help with column name mappings. What is an `enum` in Java? Why would we use it for this application?
-
-
-
-
-
+\
+An ``enum`` is a special Java type used to define a fixed set of named constants.
+\
+Why use? It allows type safety instead of using raw strings and it can include custom properties.
 
 
 7. Rewrite the following as an if else statement inside the empty code block.
@@ -71,7 +120,14 @@ In Java, ``==``checks if two
     ``` 
 
     ```java
-    // your code here, don't forget the class name that is dropped in the switch block..
+   if (ct == CMD_QUESTION || ct == CMD_HELP) {
+    processHelp();
+} else if (ct == INVALID) {
+    CONSOLE.printf("%s%n", ConsoleText.INVALID);
+} else {
+    CONSOLE.printf("%s%n", ConsoleText.INVALID);
+}
+
     
     ```
 
@@ -89,7 +145,7 @@ the current layout.
 Post a copy of the run with the updated languages below this. Use three back ticks (```) to create a code block. 
 
 ```text
-// your consoles output here
+welcome.message=¡Bienvenido a nuestro programa!
 ```
 
 Now, thinking about localization - we have the question of why does it matter? The obvious
@@ -97,6 +153,22 @@ one is more about market share, but there may be other reasons.  I encourage
 you to take time researching localization and the importance of having programs
 flexible enough to be localized to different languages and cultures. Maybe pull up data on the
 various spoken languages around the world? What about areas with internet access - do they match? Just some ideas to get you started. Another question you are welcome to talk about - what are the dangers of trying to localize your program and doing it wrong? Can you find any examples of that? Business marketing classes love to point out an example of a car name in Mexico that meant something very different in Spanish than it did in English - however [Snopes has shown that is a false tale](https://www.snopes.com/fact-check/chevrolet-nova-name-spanish/).  As a developer, what are some things you can do to reduce 'hick ups' when expanding your program to other languages?
+\Why is localization important?
 
+    Expands market reach (more users can access the software).
+    Respects cultural differences (date formats, currency, etc.).
+    Improves user experience (people prefer software in their native language).
+
+\Challenges of Bad Localization:
+
+    Literal translations can cause confusion (e.g., "Gift" in English vs. "Gift" in German = Poison).
+    Formatting issues (e.g., different date/time formats).
+    Branding failures (e.g., Pepsi’s "Come alive with Pepsi" translated in Chinese as "Pepsi brings your ancestors back from the dead").
+
+\How to avoid localization errors?
+
+    Use native speakers for translations.
+    Allow for flexible UI (text in some languages is longer than others).
+    Test in different locales before launching.
 
 As a reminder, deeper thinking questions are meant to require some research and to be answered in a paragraph for with references. The goal is to open up some of the discussion topics in CS, so you are better informed going into industry. 
