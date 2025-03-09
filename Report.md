@@ -5,8 +5,8 @@ code as it is meant to help you understand some of the concepts.
 
 ## Technical Questions
 
-1. What is the difference between == and .equals in java? Provide a code example of each, where they would return different results for an object. Include the code snippet using the hash marks (```) to create a code block.\
-ANSWER:
+1. What is the difference between == and .equals in java? Provide a code example of each, where they would return different results for an object. Include the code snippet using the hash marks (```) to create a code block.
+\
 In Java, ``==``checks if two references point to the same object,``.equals()``checks if two objects are meaningfully equal based on how the class defines equality.
 
    ```java
@@ -18,9 +18,7 @@ In Java, ``==``checks if two references point to the same object,``.equals()``ch
         System.out.println(a == b);        // false (different objects in memory)
         System.out.println(a.equals(b));   // true (same content)
     }
-}
-
-   
+   }
    ```
 
 2. Logical sorting can be difficult when talking about case. For example, should "apple" come before "Banana" or after? How would you sort a list of strings in a case-insensitive manner?
