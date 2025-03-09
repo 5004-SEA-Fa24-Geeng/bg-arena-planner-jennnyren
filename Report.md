@@ -5,7 +5,7 @@ code as it is meant to help you understand some of the concepts.
 
 ## Technical Questions
 
-1. What is the difference between == and .equals in java? Provide a code example of each, where they would return different results for an object. Include the code snippet using the hash marks (```) to create a code block.
+1. What is the difference between == and .equals in java? Provide a code example of each, where they would return different results for an object. Include the code snippet using the hash marks (```) to create a code block.\n
 \nANSWER:
 In Java, ``==``checks if two
    ```java
