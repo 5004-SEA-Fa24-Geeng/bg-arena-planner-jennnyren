@@ -8,7 +8,6 @@ This document is meant to provide a tool for you to demonstrate the design proce
 
 Place your class diagrams below. Make sure you check the file in the browser on github.com to make sure it is rendering correctly. If it is not, you will need to fix it. As a reminder, here is a link to tools that can help you create a class diagram: [Class Resources: Class Design Tools](https://github.com/CS5004-khoury-lionelle/Resources?tab=readme-ov-file#uml-design-tools)
 
-![UML](UML/UML.png)
 
 ### Provided Code
 
@@ -21,7 +20,7 @@ Provide a class diagram for the provided code as you read through it.  For the c
 Create a class diagram for the classes you plan to create. This is your initial design, and it is okay if it changes. Your starting points are the interfaces. 
 
 
-
+![UML](UML/UML.png)
 
 
 ## (INITIAL DESIGN): Tests to Write - Brainstorm
@@ -49,6 +48,8 @@ You should feel free to number your brainstorm.
 Go through your completed code, and update your class diagram to reflect the final design. Make sure you check the file in the browser on github.com to make sure it is rendering correctly. It is normal that the two diagrams don't match! Rarely (though possible) is your initial design perfect. 
 
 For the final design, you just need to do a single diagram that includes both the original classes and the classes you added. 
+
+![UML](UML/finalDesign.png)
 
 > [!WARNING]
 > If you resubmit your assignment for manual grading, this is a section that often needs updating. You should double check with every resubmit to make sure it is up to date.
