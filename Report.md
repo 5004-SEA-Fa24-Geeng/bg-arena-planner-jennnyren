@@ -157,19 +157,20 @@ one is more about market share, but there may be other reasons.  I encourage
 you to take time researching localization and the importance of having programs
 flexible enough to be localized to different languages and cultures. Maybe pull up data on the
 various spoken languages around the world? What about areas with internet access - do they match? Just some ideas to get you started. Another question you are welcome to talk about - what are the dangers of trying to localize your program and doing it wrong? Can you find any examples of that? Business marketing classes love to point out an example of a car name in Mexico that meant something very different in Spanish than it did in English - however [Snopes has shown that is a false tale](https://www.snopes.com/fact-check/chevrolet-nova-name-spanish/).  As a developer, what are some things you can do to reduce 'hick ups' when expanding your program to other languages?
-\Why is localization important?
+
+Why is localization important?
 
     Expands market reach (more users can access the software).
     Respects cultural differences (date formats, currency, etc.).
     Improves user experience (people prefer software in their native language).
 
-\Challenges of Bad Localization:
+Challenges of Bad Localization:
 
     Literal translations can cause confusion (e.g., "Gift" in English vs. "Gift" in German = Poison).
     Formatting issues (e.g., different date/time formats).
     Branding failures (e.g., Pepsi’s "Come alive with Pepsi" translated in Chinese as "Pepsi brings your ancestors back from the dead").
 
-\How to avoid localization errors?
+How to avoid localization errors?
 
     Use native speakers for translations.
     Allow for flexible UI (text in some languages is longer than others).
