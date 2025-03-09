@@ -49,7 +49,7 @@ Go through your completed code, and update your class diagram to reflect the fin
 
 For the final design, you just need to do a single diagram that includes both the original classes and the classes you added. 
 
-![UML](UML/finalDesign-1.png)
+![UML](UML/finalDesign1.png)
 
 > [!WARNING]
 > If you resubmit your assignment for manual grading, this is a section that often needs updating. You should double check with every resubmit to make sure it is up to date.
