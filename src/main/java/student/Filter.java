@@ -1,5 +1,6 @@
 package student;
 
+import java.util.Comparator;
 import java.util.stream.Stream;
 
 public class Filter {
@@ -67,7 +68,8 @@ public class Filter {
         return switch (operator) {
             case EQUALS -> games.filter(game -> getter.apply(game).equalsIgnoreCase(value));
             case NOT_EQUALS -> games.filter(game -> !getter.apply(game).equalsIgnoreCase(value));
-            case CONTAINS -> games.filter(game -> getter.apply(game).toLowerCase().contains(value.toLowerCase()));
+            case CONTAINS -> games.filter(game -> getter.apply(game).toLowerCase().contains(value.toLowerCase()))
+                    .sorted(Comparator.comparing(game -> getter.apply(game).toLowerCase()));
             default -> games;
         };
     }
